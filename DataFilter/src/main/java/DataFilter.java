@@ -3,11 +3,21 @@ import java.nio.file.*;
 import java.util.*;
 
 public class DataFilter {
-    private static String outputPath = ".";
-    private static String prefix = "";
-    private static boolean appendMode = false;
-    private static boolean fullStats = false;
-    private static boolean shortStats = false;
+    static String outputPath = ".";
+    static String prefix = "";
+    static boolean appendMode = false;
+    static boolean fullStats = false;
+    static boolean shortStats = false;
+
+    // Геттер для outputPath
+    public static String getOutputPath() {
+        return outputPath;
+    }
+
+    // Сеттер для outputPath
+    public static void setOutputPath(String path) {
+        outputPath = path;
+    }
 
     public static void main(String[] args) {
         List<String> inputFiles = new ArrayList<>();
@@ -23,7 +33,7 @@ public class DataFilter {
         printStatistics(categorizedData);
     }
 
-    private static void parseArguments(String[] args, List<String> inputFiles) {
+    static void parseArguments(String[] args, List<String> inputFiles) {
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "-o":
@@ -49,7 +59,7 @@ public class DataFilter {
         }
     }
 
-    private static void processFiles(List<String> files, Map<String, List<String>> data) {
+    static void processFiles(List<String> files, Map<String, List<String>> data) {
         for (String file : files) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
@@ -62,7 +72,7 @@ public class DataFilter {
         }
     }
 
-    private static void categorizeData(String line, Map<String, List<String>> data) {
+    static void categorizeData(String line, Map<String, List<String>> data) {
         try {
             Integer.parseInt(line);
             data.get("integers").add(line);
@@ -78,13 +88,13 @@ public class DataFilter {
         data.get("strings").add(line);
     }
 
-    private static void writeResults(Map<String, List<String>> data) {
+    static void writeResults(Map<String, List<String>> data) {
         writeToFile(data.get("integers"), "integers.txt");
         writeToFile(data.get("floats"), "floats.txt");
         writeToFile(data.get("strings"), "strings.txt");
     }
 
-    private static void writeToFile(List<String> data, String fileName) {
+    static void writeToFile(List<String> data, String fileName) {
         if (data.isEmpty()) return;
 
         String fullPath = Paths.get(outputPath, prefix + fileName).toString();
@@ -98,7 +108,7 @@ public class DataFilter {
         }
     }
 
-    private static void printStatistics(Map<String, List<String>> data) {
+    static void printStatistics(Map<String, List<String>> data) {
         if (!shortStats && !fullStats) return;
 
         System.out.println("=== Statistics ===");
