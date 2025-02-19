@@ -1,13 +1,16 @@
+import java.util.Random;
+
 public class MultiThreadedCalculation {
 
 
     private static final int THREAD_COUNT = 5;         // Количество потоков
     private static final int PROGRESS_BAR_LENGTH = 50; // Длина расчёта (количество шагов прогресс-бара)
-    private static final int DELAY = 200;              // Время задержки между шагами (в миллисекундах)
+    private static final int MIN_DELAY = 50;          // Минимальная задержка (в миллисекундах)
+    private static final int MAX_DELAY = 250;          // Максимальная задержка (в миллисекундах)
     private static final Object lock = new Object();   // Общий объект для синхронизации вывода
+    private static final Random random = new Random(); // Генератор случайных чисел
 
     public static void main(String[] args) {
-
         int[] progress = new int[THREAD_COUNT];          // Массив для хранения прогресса каждого потока
         long[] completionTimes = new long[THREAD_COUNT]; // Массив для хранения времени выполнения каждого потока
         Thread[] threads = new Thread[THREAD_COUNT];     // Массив для хранения потоков
@@ -32,8 +35,9 @@ public class MultiThreadedCalculation {
                         }
                     }
 
+                    // Случайная задержка от 50 до 100 мс
                     try {
-                        Thread.sleep(DELAY);
+                        Thread.sleep(MIN_DELAY + random.nextInt(MAX_DELAY - MIN_DELAY + 1));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
