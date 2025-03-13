@@ -2,13 +2,30 @@ package com.example.demo.model;
 
 import lombok.Data;
 import java.util.List;
+import jakarta.persistence.*;
 
+@Entity
 @Data
 public class Pet {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToMany
+    @JoinTable(
+            name = "pet_tag",
+            joinColumns = @JoinColumn(name = "pet_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Pet() {
