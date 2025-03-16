@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/lab4")
+@RequestMapping("/pets")
 public class PetController {
     private final PetService petService;
     private final Validation validation;
