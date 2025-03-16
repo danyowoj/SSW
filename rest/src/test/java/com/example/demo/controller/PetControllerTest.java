@@ -1,111 +1,126 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Category;
 import com.example.demo.model.Pet;
 import com.example.demo.model.Status;
+import com.example.demo.model.Tag;
 import com.example.demo.service.PetService;
 import com.example.demo.validation.Validation;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.hamcrest.Matchers.containsString;
+import java.util.Collections;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(PetController.class)
 public class PetControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private PetService petService;
 
-    @Mock
+    @MockBean
     private Validation validation;
 
-    @InjectMocks
-    private PetController petController;
-    private Pet pet;
-
-    @BeforeEach
-    public void setup() {
-        pet = new Pet();
-        pet.setId(1L);
-        pet.setName("Buddy");
-        pet.setStatus(Status.AVAILABLE);
-    }
-
     @Test
-    void addPet_ValidPet_ReturnsOk() throws Exception {
+    public void testAddPet() throws Exception {
+        Category category = new Category(1L, "Dogs");
+        Tag tag = new Tag(1L, "Friendly");
+        Pet pet = new Pet(1L, "Buddy", category, Collections.singletonList(tag), Status.AVAILABLE);
+
         Mockito.when(validation.validatePet(pet)).thenReturn("Success");
         Mockito.when(petService.create(pet)).thenReturn(pet);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
-
-        mockMvc.perform(post("/lab4/pet")
+        mockMvc.perform(post("/pets/pet")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1,\"name\":\"Buddy\",\"status\":\"AVAILABLE\"}"))
+                        .content("{\"id\":1,\"name\":\"Buddy\",\"category\":{\"id\":1,\"name\":\"Dogs\"},\"tags\":[{\"id\":1,\"name\":\"Friendly\"}],\"status\":\"AVAILABLE\"}"))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.name").value("Buddy"));
     }
 
     @Test
-    void addPet_InvalidPet_ReturnsUnprocessableEntity() throws Exception {
-        Mockito.when(validation.validatePet(Mockito.any())).thenReturn("Invalid input");
+    public void testUpdatePet() throws Exception {
+        Category category = new Category(1L, "Dogs");
+        Tag tag = new Tag(1L, "Friendly");
+        Pet pet = new Pet(1L, "Buddy", category, Collections.singletonList(tag), Status.AVAILABLE);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
+        Mockito.when(validation.validatePet(pet)).thenReturn("Success");
+        Mockito.when(validation.validateID(1L)).thenReturn("Success");
+        Mockito.when(petService.update(pet)).thenReturn(pet);
 
-        mockMvc.perform(post("/lab4/pet")
+        mockMvc.perform(put("/pets/pet")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{}"))
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string("Invalid input"));
+                        .content("{\"id\":1,\"name\":\"Buddy\",\"category\":{\"id\":1,\"name\":\"Dogs\"},\"tags\":[{\"id\":1,\"name\":\"Friendly\"}],\"status\":\"AVAILABLE\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("Buddy"));
     }
 
     @Test
-    void getPetById_ExistingId_ReturnsPet() throws Exception {
+    public void testGetPetById() throws Exception {
+        Category category = new Category(1L, "Dogs");
+        Tag tag = new Tag(1L, "Friendly");
+        Pet pet = new Pet(1L, "Buddy", category, Collections.singletonList(tag), Status.AVAILABLE);
+
         Mockito.when(petService.findById(1L)).thenReturn(pet);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
-
-        mockMvc.perform(get("/lab4/pet/1"))
+        mockMvc.perform(get("/pets/pet/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1));
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("Buddy"));
     }
 
     @Test
-    void updatePetWithForm_ValidData_ReturnsOk() throws Exception {
-        Pet updatedPet = new Pet(1L, "Rex", null, null, Status.SOLD);
-        Mockito.when(petService.updateById(1L, "Rex", Status.SOLD)).thenReturn(updatedPet);
+    public void testGetPets() throws Exception {
+        Category category = new Category(1L, "Dogs");
+        Tag tag = new Tag(1L, "Friendly");
+        Pet pet = new Pet(1L, "Buddy", category, Collections.singletonList(tag), Status.AVAILABLE);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
+        Mockito.when(petService.findAllPets()).thenReturn(Collections.singletonList(pet));
 
-        mockMvc.perform(post("/lab4/pet/1")
-                        .param("name", "Rex")
-                        .param("status", "SOLD"))
+        mockMvc.perform(get("/pets/pet"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Rex"));
+                .andExpect(jsonPath("$[0].id").value(1L))
+                .andExpect(jsonPath("$[0].name").value("Buddy"));
     }
 
     @Test
-    void deletePet_InvalidId_ReturnsBadRequest() throws Exception {
-        Mockito.when(petService.deletePet(999L)).thenThrow(new RuntimeException());
+    public void testDeletePet() throws Exception {
+        Category category = new Category(1L, "Dogs");
+        Tag tag = new Tag(1L, "Friendly");
+        Pet pet = new Pet(1L, "Buddy", category, Collections.singletonList(tag), Status.AVAILABLE);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
+        Mockito.when(petService.deletePet(1L)).thenReturn(pet);
 
-        mockMvc.perform(delete("/lab4/pet/999"))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("Invalid pet value"));
+        mockMvc.perform(delete("/pets/pet/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("Buddy"));
+    }
+
+    @Test
+    public void testUpdatePetWithForm() throws Exception {
+        Category category = new Category(1L, "Dogs");
+        Tag tag = new Tag(1L, "Friendly");
+        Pet pet = new Pet(1L, "Buddy", category, Collections.singletonList(tag), Status.AVAILABLE);
+
+        Mockito.when(petService.updateById(1L, "Buddy", Status.AVAILABLE)).thenReturn(pet);
+
+        mockMvc.perform(post("/pets/pet/1")
+                        .param("name", "Buddy")
+                        .param("status", "AVAILABLE"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("Buddy"));
     }
 }

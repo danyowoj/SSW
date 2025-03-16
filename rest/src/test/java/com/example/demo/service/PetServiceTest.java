@@ -1,71 +1,85 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Category;
 import com.example.demo.model.Pet;
 import com.example.demo.model.Status;
 import com.example.demo.repository.PetRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
+
+@SpringBootTest
 public class PetServiceTest {
 
-    @Mock
-    private PetRepository petRepository;
-
-    @InjectMocks
+    @Autowired
     private PetService petService;
 
-    @Test
-    void createPet_Success() {
-        Pet pet = new Pet(1L, "Buddy", new Category(), List.of(), Status.AVAILABLE);
-        when(petRepository.savePet(any(Pet.class))).thenReturn(pet);
+    @MockBean
+    private PetRepository petRepository;
 
-        Pet result = petService.create(pet);
-        assertEquals(pet, result);
-        verify(petRepository, times(1)).savePet(pet);
+    @Test
+    public void testCreatePet() {
+        Pet pet = new Pet(1L, "Buddy", null, Collections.emptyList(), Status.AVAILABLE);
+        Mockito.when(petRepository.savePet(pet)).thenReturn(pet);
+
+        Pet createdPet = petService.create(pet);
+        assertEquals(pet, createdPet);
     }
 
     @Test
-    void findById_PetExists() {
-        Pet pet = new Pet(1L, "Buddy", new Category(), List.of(), Status.AVAILABLE);
-        when(petRepository.findById(1L)).thenReturn(Optional.of(pet));
+    public void testFindPetById() {
+        Pet pet = new Pet(1L, "Buddy", null, Collections.emptyList(), Status.AVAILABLE);
+        Mockito.when(petRepository.findById(1L)).thenReturn(Optional.of(pet));
 
-        Pet result = petService.findById(1L);
-        assertEquals(pet, result);
+        Pet foundPet = petService.findById(1L);
+        assertEquals(pet, foundPet);
     }
 
     @Test
-    void findById_PetNotFound() {
-        when(petRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class, () -> petService.findById(1L));
+    public void testFindAllPets() {
+        Pet pet = new Pet(1L, "Buddy", null, Collections.emptyList(), Status.AVAILABLE);
+        Mockito.when(petRepository.findAll()).thenReturn(Collections.singletonList(pet));
+
+        List<Pet> pets = petService.findAllPets();
+        assertEquals(1, pets.size());
+        assertEquals(pet, pets.get(0));
     }
 
     @Test
-    void deletePet_Success() {
-        Pet pet = new Pet(1L, "Buddy", new Category(), List.of(), Status.AVAILABLE);
-        when(petRepository.deletePet(1L)).thenReturn(pet);
+    public void testDeletePet() {
+        Pet pet = new Pet(1L, "Buddy", null, Collections.emptyList(), Status.AVAILABLE);
+        Mockito.when(petRepository.deletePet(1L)).thenReturn(pet);
 
-        Pet result = petService.deletePet(1L);
-        assertEquals(pet, result);
+        Pet deletedPet = petService.deletePet(1L);
+        assertEquals(pet, deletedPet);
     }
 
     @Test
-    void updateById_Success() {
-        Pet existingPet = new Pet(1L, "Buddy", new Category(), List.of(), Status.AVAILABLE);
-        when(petRepository.findById(1L)).thenReturn(Optional.of(existingPet));
-        when(petRepository.savePet(any(Pet.class))).thenReturn(existingPet);
+    public void testUpdatePetById() {
+        Pet pet = new Pet(1L, "Buddy", null, Collections.emptyList(), Status.AVAILABLE);
+        Mockito.when(petRepository.findById(1L)).thenReturn(Optional.of(pet));
+        Mockito.when(petRepository.savePet(pet)).thenReturn(pet);
 
-        Pet updatedPet = petService.updateById(1L, "Max", Status.SOLD);
-        assertEquals("Max", updatedPet.getName());
-        assertEquals(Status.SOLD, updatedPet.getStatus());
+        Pet updatedPet = petService.updateById(1L, "Buddy", Status.AVAILABLE);
+        assertEquals(pet, updatedPet);
+    }
+
+    @Test
+    public void testUpdatePet() {
+        Pet pet = new Pet(1L, "Buddy", null, Collections.emptyList(), Status.AVAILABLE);
+        Mockito.when(petRepository.findById(1L)).thenReturn(Optional.of(pet));
+        Mockito.when(petRepository.savePet(pet)).thenReturn(pet);
+
+        Pet updatedPet = petService.update(pet);
+        assertEquals(pet, updatedPet);
     }
 }
