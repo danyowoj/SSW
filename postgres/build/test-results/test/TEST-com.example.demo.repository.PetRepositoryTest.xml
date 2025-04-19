@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.demo.repository.PetRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-03-26T03:56:12.934Z" hostname="DANYOWOJ_LAPTOP" time="0.486">
+  <properties/>
+  <testcase name="shouldDeletePet()" classname="com.example.demo.repository.PetRepositoryTest" time="0.413"/>
+  <testcase name="shouldHandleRelationshipsCorrectly()" classname="com.example.demo.repository.PetRepositoryTest" time="0.013"/>
+  <testcase name="shouldSaveAndRetrievePet()" classname="com.example.demo.repository.PetRepositoryTest" time="0.007"/>
+  <testcase name="shouldFindAllPets()" classname="com.example.demo.repository.PetRepositoryTest" time="0.032"/>
+  <testcase name="shouldUpdatePet()" classname="com.example.demo.repository.PetRepositoryTest" time="0.017"/>
+  <system-out><![CDATA[10:55:32.746 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.demo.repository.PetRepositoryTest]: PetRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+10:55:32.871 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.demo.DemoApplication for test class com.example.demo.repository.PetRepositoryTest
+10:55:32.989 [Test worker] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+10:55:32.993 [Test worker] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+10:55:33.001 [Test worker] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 1.20.5
+10:55:33.476 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+10:55:33.487 [Test worker] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+10:55:33.503 [Test worker] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 28.0.1
+  API Version: 1.48
+  Operating System: Docker Desktop
+  Total Memory: 7797 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+10:55:33.572 [Test worker] INFO tc.testcontainers/ryuk:0.11.0 -- Pulling docker image: testcontainers/ryuk:0.11.0. Please be patient; this may take some time but only needs to be done once.
+10:55:36.210 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Starting to pull image
+10:55:36.227 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+10:55:37.867 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (3 MB/? MB)
+10:55:37.968 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Pulling image layers:  2 pending,  1 downloaded,  1 extracted, (4 MB/? MB)
+10:55:38.970 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Pulling image layers:  1 pending,  2 downloaded,  1 extracted, (10 MB/? MB)
+10:55:38.972 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Pulling image layers:  1 pending,  2 downloaded,  2 extracted, (10 MB/? MB)
+10:55:39.145 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (10 MB/10 MB)
+10:55:39.145 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (10 MB/10 MB)
+10:55:39.148 [docker-java-stream--2043263710] INFO tc.testcontainers/ryuk:0.11.0 -- Pull complete. 3 layers, pulled in 2s (downloaded 10 MB at 5 MB/s)
+10:55:39.148 [Test worker] INFO tc.testcontainers/ryuk:0.11.0 -- Image testcontainers/ryuk:0.11.0 pull took PT5.5761748S
+10:55:39.205 [Test worker] INFO tc.testcontainers/ryuk:0.11.0 -- Creating container for image: testcontainers/ryuk:0.11.0
+10:55:39.621 [Test worker] INFO tc.testcontainers/ryuk:0.11.0 -- Container testcontainers/ryuk:0.11.0 is starting: d9c2be6e5bfaa88d18068743cb9360bf9bb1343352c071e6c7496953070cb66a
+10:55:40.006 [Test worker] INFO tc.testcontainers/ryuk:0.11.0 -- Container testcontainers/ryuk:0.11.0 started in PT0.8011835S
+10:55:40.011 [Test worker] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+10:55:40.011 [Test worker] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+10:55:40.012 [Test worker] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+10:55:40.016 [Test worker] INFO tc.postgres:15-alpine -- Pulling docker image: postgres:15-alpine. Please be patient; this may take some time but only needs to be done once.
+10:55:41.933 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Starting to pull image
+10:55:41.934 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+10:55:43.036 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers: 10 pending,  1 downloaded,  0 extracted, (184 bytes/? MB)
+10:55:43.137 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  9 pending,  2 downloaded,  0 extracted, (184 bytes/? MB)
+10:55:43.337 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  8 pending,  3 downloaded,  0 extracted, (184 bytes/? MB)
+10:55:43.537 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  7 pending,  4 downloaded,  0 extracted, (184 bytes/? MB)
+10:55:43.538 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  6 pending,  5 downloaded,  0 extracted, (184 bytes/? MB)
+10:55:43.539 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  5 pending,  6 downloaded,  0 extracted, (360 bytes/? MB)
+10:55:43.539 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  4 pending,  7 downloaded,  0 extracted, (360 bytes/? MB)
+10:55:43.638 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  3 pending,  8 downloaded,  0 extracted, (2 MB/? MB)
+10:55:44.140 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  2 pending,  9 downloaded,  0 extracted, (4 MB/? MB)
+10:55:44.440 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  1 pending, 10 downloaded,  0 extracted, (6 MB/? MB)
+10:55:44.543 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  1 pending, 10 downloaded,  1 extracted, (6 MB/? MB)
+10:55:44.545 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  1 pending, 10 downloaded,  2 extracted, (6 MB/? MB)
+10:55:44.647 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  1 pending, 10 downloaded,  3 extracted, (6 MB/? MB)
+10:55:44.648 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  1 pending, 10 downloaded,  4 extracted, (6 MB/? MB)
+10:55:44.648 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  1 pending, 10 downloaded,  5 extracted, (6 MB/? MB)
+10:56:02.834 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  0 pending, 11 downloaded,  5 extracted, (102 MB/102 MB)
+10:56:04.315 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  0 pending, 11 downloaded,  6 extracted, (102 MB/102 MB)
+10:56:04.315 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  0 pending, 11 downloaded,  7 extracted, (102 MB/102 MB)
+10:56:04.316 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  0 pending, 11 downloaded,  8 extracted, (102 MB/102 MB)
+10:56:04.317 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  0 pending, 11 downloaded,  9 extracted, (102 MB/102 MB)
+10:56:04.318 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  0 pending, 11 downloaded, 10 extracted, (102 MB/102 MB)
+10:56:04.319 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pulling image layers:  0 pending, 11 downloaded, 11 extracted, (102 MB/102 MB)
+10:56:04.322 [Test worker] INFO tc.postgres:15-alpine -- Image postgres:15-alpine pull took PT24.3051711S
+10:56:04.322 [docker-java-stream--1383658337] INFO tc.postgres:15-alpine -- Pull complete. 11 layers, pulled in 22s (downloaded 102 MB at 4 MB/s)
+10:56:04.370 [Test worker] INFO tc.postgres:15-alpine -- Creating container for image: postgres:15-alpine
+10:56:04.683 [Test worker] INFO tc.postgres:15-alpine -- Container postgres:15-alpine is starting: 18855143f0c6c22a7b924f07d5501efd15d306736fe4d23ef61c8a688f3c444f
+10:56:06.437 [Test worker] INFO tc.postgres:15-alpine -- Container postgres:15-alpine started in PT2.0672142S
+10:56:06.438 [Test worker] INFO tc.postgres:15-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:30556/lab5?loggerLevel=OFF)
+Postgres URL: jdbc:postgresql://localhost:30556/lab5?loggerLevel=OFF
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2025-03-26T10:56:06.728+07:00  INFO 21828 --- [demo] [    Test worker] c.e.demo.repository.PetRepositoryTest    : Starting PetRepositoryTest using Java 21.0.6 with PID 21828 (started by latsu in C:\Users\latsu\GitHub_projects\SSW\postgres)
+2025-03-26T10:56:06.729+07:00  INFO 21828 --- [demo] [    Test worker] c.e.demo.repository.PetRepositoryTest    : No active profile set, falling back to 1 default profile: "default"
+2025-03-26T10:56:07.411+07:00  INFO 21828 --- [demo] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-26T10:56:07.483+07:00  INFO 21828 --- [demo] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 1 JPA repository interface.
+2025-03-26T10:56:07.908+07:00  INFO 21828 --- [demo] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-26T10:56:08.082+07:00  INFO 21828 --- [demo] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@78bd02c8
+2025-03-26T10:56:08.083+07:00  INFO 21828 --- [demo] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-26T10:56:08.195+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.database                       : Set default schema name to public
+2025-03-26T10:56:08.549+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Creating database history table with name: public.databasechangelog
+2025-03-26T10:56:08.578+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2025-03-26T10:56:08.682+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.lockservice                    : Successfully acquired change log lock
+2025-03-26T10:56:08.684+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.command                        : Using deploymentId: 2961368684
+2025-03-26T10:56:08.687+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2025-03-26T10:56:08.707+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-master.xml::1::postgres
+2025-03-26T10:56:08.712+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.snapshot                       : Creating snapshot
+2025-03-26T10:56:08.736+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Table categories created
+2025-03-26T10:56:08.738+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-master.xml::1::postgres ran successfully in 30ms
+2025-03-26T10:56:08.745+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-master.xml::2::postgres
+2025-03-26T10:56:08.749+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.snapshot                       : Creating snapshot
+2025-03-26T10:56:08.763+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Table tags created
+2025-03-26T10:56:08.764+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-master.xml::2::postgres ran successfully in 18ms
+2025-03-26T10:56:08.770+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-master.xml::3::postgres
+2025-03-26T10:56:08.773+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.snapshot                       : Creating snapshot
+2025-03-26T10:56:08.787+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Table pets created
+2025-03-26T10:56:08.789+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-master.xml::3::postgres ran successfully in 19ms
+2025-03-26T10:56:08.793+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-master.xml::4::postgres
+2025-03-26T10:56:09.085+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.snapshot                       : Creating snapshot
+2025-03-26T10:56:09.093+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Foreign key constraint added to pets (category_id)
+2025-03-26T10:56:09.094+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-master.xml::4::postgres ran successfully in 301ms
+2025-03-26T10:56:09.098+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-master.xml::5::postgres
+2025-03-26T10:56:09.100+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.snapshot                       : Creating snapshot
+2025-03-26T10:56:09.109+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Table pet_tags created
+2025-03-26T10:56:09.110+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-master.xml::5::postgres ran successfully in 12ms
+2025-03-26T10:56:09.113+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-master.xml::6::postgres
+2025-03-26T10:56:09.267+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.snapshot                       : Creating snapshot
+2025-03-26T10:56:09.274+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Primary key added to pet_tags (pet_id, tag_id)
+2025-03-26T10:56:09.275+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-master.xml::6::postgres ran successfully in 162ms
+2025-03-26T10:56:09.278+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-master.xml::7::postgres
+2025-03-26T10:56:09.623+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.snapshot                       : Creating snapshot
+2025-03-26T10:56:09.632+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Foreign key constraint added to pet_tags (pet_id)
+2025-03-26T10:56:09.633+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-master.xml::7::postgres ran successfully in 353ms
+2025-03-26T10:56:09.636+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-master.xml::8::postgres
+2025-03-26T10:56:09.984+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.snapshot                       : Creating snapshot
+2025-03-26T10:56:09.993+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : Foreign key constraint added to pet_tags (tag_id)
+2025-03-26T10:56:09.994+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-master.xml::8::postgres ran successfully in 358ms
+2025-03-26T10:56:10.002+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.util                           : UPDATE SUMMARY
+2025-03-26T10:56:10.002+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.util                           : Run:                          8
+2025-03-26T10:56:10.002+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.util                           : Previously run:               0
+2025-03-26T10:56:10.002+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.util                           : Filtered out:                 0
+2025-03-26T10:56:10.002+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.util                           : -------------------------------
+2025-03-26T10:56:10.002+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.util                           : Total change sets:            8
+2025-03-26T10:56:10.003+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.util                           : Update summary generated
+2025-03-26T10:56:10.005+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.command                        : Update command completed successfully.
+2025-03-26T10:56:10.005+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 8
+2025-03-26T10:56:10.010+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.lockservice                    : Successfully released change log lock
+2025-03-26T10:56:10.011+07:00  INFO 21828 --- [demo] [    Test worker] liquibase.command                        : Command execution complete
+2025-03-26T10:56:10.117+07:00  INFO 21828 --- [demo] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-26T10:56:10.173+07:00  INFO 21828 --- [demo] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-26T10:56:10.207+07:00  INFO 21828 --- [demo] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-26T10:56:10.480+07:00  INFO 21828 --- [demo] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-26T10:56:10.527+07:00  WARN 21828 --- [demo] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-26T10:56:10.543+07:00  INFO 21828 --- [demo] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.12
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-26T10:56:11.349+07:00  INFO 21828 --- [demo] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: alter table if exists pets alter column status set data type varchar(255)
+2025-03-26T10:56:11.527+07:00  INFO 21828 --- [demo] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-26T10:56:11.997+07:00  WARN 21828 --- [demo] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-26T10:56:12.064+07:00  INFO 21828 --- [demo] [    Test worker] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-03-26T10:56:12.476+07:00  INFO 21828 --- [demo] [    Test worker] c.e.demo.repository.PetRepositoryTest    : Started PetRepositoryTest in 5.999 seconds (process running for 40.681)
+Hibernate: select c1_0.id,c1_0.name from categories c1_0 where c1_0.name=?
+Hibernate: insert into categories (name) values (?)
+Hibernate: select t1_0.id,t1_0.name from tags t1_0 where t1_0.name=?
+Hibernate: insert into tags (name) values (?)
+Hibernate: insert into pets (category_id,name,status) values (?,?,?)
+Hibernate: insert into pet_tags (pet_id,tag_id) values (?,?)
+Hibernate: select p1_0.id,c1_0.id,c1_0.name,p1_0.name,p1_0.status from pets p1_0 left join categories c1_0 on c1_0.id=p1_0.category_id where p1_0.id=?
+Hibernate: select p1_0.id,c1_0.id,c1_0.name,p1_0.name,p1_0.status from pets p1_0 left join categories c1_0 on c1_0.id=p1_0.category_id where p1_0.id=?
+Hibernate: select c1_0.id,c1_0.name from categories c1_0 where c1_0.name=?
+Hibernate: insert into categories (name) values (?)
+Hibernate: select t1_0.id,t1_0.name from tags t1_0 where t1_0.name=?
+Hibernate: insert into tags (name) values (?)
+Hibernate: insert into pets (category_id,name,status) values (?,?,?)
+Hibernate: select p1_0.id,p1_0.category_id,p1_0.name,p1_0.status from pets p1_0
+Hibernate: select c1_0.id,c1_0.name from categories c1_0 where c1_0.id=?
+Hibernate: select p1_0.id,c1_0.id,c1_0.name,p1_0.name,p1_0.status from pets p1_0 left join categories c1_0 on c1_0.id=p1_0.category_id where p1_0.id=?
+Hibernate: select t1_0.pet_id,t1_1.id,t1_1.name from pet_tags t1_0 join tags t1_1 on t1_1.id=t1_0.tag_id where t1_0.pet_id=?
+]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\latsu\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.15.11\a38b16385e867f59a641330f0362ebe742788ed8\byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

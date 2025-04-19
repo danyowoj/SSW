@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <!-- Создание таблицы categories -->
+    <changeSet id="1" author="postgres">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="categories"/>
+            </not>
+        </preConditions>
+        <createTable tableName="categories">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Создание таблицы tags -->
+    <changeSet id="2" author="postgres">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="tags"/>
+            </not>
+        </preConditions>
+        <createTable tableName="tags">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Создание таблицы pets -->
+    <changeSet id="3" author="postgres">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="pets"/>
+            </not>
+        </preConditions>
+        <createTable tableName="pets">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Внешний ключ для category_id -->
+    <changeSet id="4" author="postgres">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="pets"/>
+            <tableExists tableName="categories"/>
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_pet_category"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+                baseTableName="pets"
+                baseColumnNames="category_id"
+                referencedTableName="categories"
+                referencedColumnNames="id"
+                constraintName="fk_pet_category"
+        />
+    </changeSet>
+
+    <!-- Создание таблицы pet_tags -->
+    <changeSet id="5" author="postgres">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="pet_tags"/>
+            </not>
+        </preConditions>
+        <createTable tableName="pet_tags">
+            <column name="pet_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Первичный ключ для pet_tags -->
+    <changeSet id="6" author="postgres">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="pet_tags"/>
+            <not>
+                <primaryKeyExists primaryKeyName="pk_pet_tags"/>
+            </not>
+        </preConditions>
+        <addPrimaryKey
+                tableName="pet_tags"
+                columnNames="pet_id, tag_id"
+                constraintName="pk_pet_tags"
+        />
+    </changeSet>
+
+    <!-- Внешние ключи для pet_tags -->
+    <changeSet id="7" author="postgres">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="pet_tags"/>
+            <tableExists tableName="pets"/>
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_pet_tag_pet"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+                baseTableName="pet_tags"
+                baseColumnNames="pet_id"
+                referencedTableName="pets"
+                referencedColumnNames="id"
+                constraintName="fk_pet_tag_pet"
+        />
+    </changeSet>
+
+    <changeSet id="8" author="postgres">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="pet_tags"/>
+            <tableExists tableName="tags"/>
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_pet_tag_tag"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+                baseTableName="pet_tags"
+                baseColumnNames="tag_id"
+                referencedTableName="tags"
+                referencedColumnNames="id"
+                constraintName="fk_pet_tag_tag"
+        />
+    </changeSet>
+</databaseChangeLog>
